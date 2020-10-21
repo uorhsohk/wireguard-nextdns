@@ -141,7 +141,14 @@ firewall-cmd --add-masquerade
 firewall-cmd --add-rich-rule='rule family="ipv4" source address="10.200.200.0/24" accept'
 ```
 
+### Start/Restart Wireguard Service
+
 ```
-cd /etc/wireguard
-wg-quick up wg0
+systemctl restart wg-quick@wg0.service
+```
+
+### To check the status
+
+```
+systemctl status wg-quick@wg0.service
 ```
