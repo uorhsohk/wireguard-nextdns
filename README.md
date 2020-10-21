@@ -9,12 +9,13 @@ sudo apt install wireguard
 navigate to wireguard directory
 
 ```
-cd /etc/wireguard
+sudo cd /etc/wireguard
 ```
 
 create public and private key
 
 ```
+umask 077
 wg genkey | tee privatekey | wg pubkey > publickey
 ```
 
