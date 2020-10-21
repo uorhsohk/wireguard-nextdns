@@ -41,7 +41,7 @@ and paste the following (this config is for two clients)
 
 ```
 [Interface]
-Address = 10.200.200.0/24
+Address = 10.200.200.1/24
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 ListenPort = [LISTEN_PORT]
@@ -50,13 +50,13 @@ PrivateKey = [INSERT_HERE_THE_PRIVATE_KEY_YOU_GENERATED_ABOVE]
 [Peer]
 PublicKey = [PEER_ONE_PUBLIC_KEY]
 PresharedKey = [PEER_ONE_PSK]
-AllowedIPs = 192.168.11.2/32
+AllowedIPs = 10.200.200.2/32
 
 
 [Peer]
 PublicKey = [PEER_TWO_PUBLIC_KEY]
 PresharedKey = [PEER_TWO_PSK]
-AllowedIPs = 192.168.11.3/32
+AllowedIPs = 10.200.200.3/32
 ```
 
 now, sample client configuration
@@ -64,8 +64,8 @@ now, sample client configuration
 ```
 [Interface]
 PrivateKey = [INSERT_PEER_PRIVATE_KEY]
-Address = 192.168.11.2/24
-DNS = 192.168.11.1
+Address = 10.200.200.2/24
+DNS = 10.200.200.1
 
 [Peer]
 PublicKey = [INSERT_SERVER_PUBLIC_KEY]
@@ -142,5 +142,6 @@ firewall-cmd --add-rich-rule='rule family="ipv4" source address="10.200.200.0/24
 ```
 
 ```
-systemctl restart wg-quick.target
+cd /etc/wireguard
+wg-quick up wg0
 ```
